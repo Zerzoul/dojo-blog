@@ -4,6 +4,8 @@ import BlogList from './BlogList'
 const Home = () => {
     const [click, setClick] = useState(0)
     const  [blogs, setBlogs] = useState(null)
+    const [isPending, setIsPending] = useState(true)
+    const  [errorMessage, setErrorMessage] = useState(null)
 
     const handleClick = () => {
         let manyClick = click
@@ -12,12 +14,21 @@ const Home = () => {
 
     useEffect(()=>{
         fetch('http://localhost:8000/blogs')
-        .then(res => {
-            return res.json()
-        })
-        .then((data)=>{
-            setBlogs(data)
-        })
+            .then(res => {
+                if(!res.ok){
+                    throw Error("Couldn't fetch the data for this ressource !")
+                }
+                return res.json()
+            })
+            .then((data)=>{
+                setBlogs(data);
+                setIsPending(false)
+                setErrorMessage(null)
+            })
+            .catch(err=>{
+                setIsPending(false)
+                setErrorMessage(err.message)
+            })
     }, [])
 
     return (
@@ -28,7 +39,9 @@ const Home = () => {
                 <button onClick={handleClick}>Click on me</button>
             </div>
             <div>
-                {blogs && <BlogList blogs={blogs} title="All blogs !"/>}
+                { errorMessage && <div>{errorMessage}</div> }
+                { isPending && <div>Loading...</div> }
+                { blogs && <BlogList blogs={blogs} title="All blogs !"/> }
             </div>
 
         </div>
