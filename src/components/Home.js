@@ -20,7 +20,7 @@ const Home = () => {
 
     useEffect(()=>{
         console.log('use Effect ran')
-    }, [blogs])
+    }, [])
 
     return (
         <div className="home">

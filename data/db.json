@@ -1,0 +1,16 @@
+{
+    "blogs":[
+        {
+            "title": "My First Blog",
+            "body": "Utilisée par les entreprises géantes de la Tech comme Facebook, Twitter ou Netflix, il s'agit de l'une des bibliothèques JavaScript les plus populaires pour construire des interfaces web. Son approche par composants réutilisables en fait un outil particulièrement modulaire pour développer vos applications.",
+            "author": "mario",
+            "id": 1
+        },
+        {
+            "title": "Opening Party!",
+            "body": "Nous commencerons par nous initier au fonctionnement de React et à la syntaxe JSX avec un outil simple en ligne. Puis nous créerons les bases de notre application complète avec Create React App, à laquelle nous ajouterons du style, et du contenu ! La dernière partie sera l'occasion d'aborder le state et les effets de bord, afin de rendre l’application interactive pour l’utilisateur. ",
+            "author": "yoshi",
+            "id": 2
+        }
+    ]
+}
