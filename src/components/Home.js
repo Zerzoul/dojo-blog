@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import BlogList from './BlogList'
 
 const Home = () => {
     const [click, setClick] = useState(0)
@@ -12,6 +13,11 @@ const Home = () => {
         setClick(manyClick += 1 ) 
     }
 
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id);
+        setBlogs(newBlogs);
+    }
+
     return (
         <div className="home">
             <div>
@@ -20,15 +26,9 @@ const Home = () => {
                 <button onClick={handleClick}>Click on me</button>
             </div>
             <div>
-                {
-                    blogs.map((blog) => (
-                        <div className="blog-preview" key={blog.id}>
-                            <h2>{blog.title}</h2>
-                            <p>Written by {blog.author}</p>
-                        </div>
-                    ))
-                }
+                <BlogList blogs={blogs} title="All blogs !" handleDelete={handleDelete}/>
             </div>
+
         </div>
     );
 }
