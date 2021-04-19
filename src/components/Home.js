@@ -1,35 +1,17 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import BlogList from './BlogList'
+import useFetch from './useFetch'
 
 const Home = () => {
     const [click, setClick] = useState(0)
-    const  [blogs, setBlogs] = useState(null)
-    const [isPending, setIsPending] = useState(true)
-    const  [errorMessage, setErrorMessage] = useState(null)
+
 
     const handleClick = () => {
         let manyClick = click
         setClick(manyClick += 1 ) 
     }
 
-    useEffect(()=>{
-        fetch('http://localhost:8000/blogs')
-            .then(res => {
-                if(!res.ok){
-                    throw Error("Couldn't fetch the data for this ressource !")
-                }
-                return res.json()
-            })
-            .then((data)=>{
-                setBlogs(data);
-                setIsPending(false)
-                setErrorMessage(null)
-            })
-            .catch(err=>{
-                setIsPending(false)
-                setErrorMessage(err.message)
-            })
-    }, [])
+    const {data,errorMessage,isPending} = useFetch("http://localhost:8000/blogs");
 
     return (
         <div className="home">
@@ -41,7 +23,7 @@ const Home = () => {
             <div>
                 { errorMessage && <div>{errorMessage}</div> }
                 { isPending && <div>Loading...</div> }
-                { blogs && <BlogList blogs={blogs} title="All blogs !"/> }
+                { data && <BlogList blogs={data} title="All blogs !"/> }
             </div>
 
         </div>
